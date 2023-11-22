@@ -18,7 +18,8 @@ export function ReviewList({ items, onDelete }) {
   return (
     <ul>
       {items.map((item) => (
-        <li>
+        // 배열 인덱스는 키로 사용 불가, 고유한 id를 사용해야함
+        <li key={item.id}>
           <ReviewListItem item={item} onDelete={onDelete}></ReviewListItem>
         </li>
       ))}
