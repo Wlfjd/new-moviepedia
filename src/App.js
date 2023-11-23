@@ -8,8 +8,9 @@ function App() {
   //평점 높은 순으로 정렬하기
   const [order, setOrder] = useState("createdAt");
   const [offset, setOffset] = useState(0);
-  const [hasNext, setHasNext] = useState(true);
+  const [hasNext, setHasNext] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingError, setLoadingError] = useState(null);
 
   const sortedItems = items.sort((a, b) => b[order] - a[order]); // 동적인 속성 접근
 
@@ -22,9 +23,11 @@ function App() {
     let result;
     try {
       setIsLoading(true);
+      setLoadingError(null);
       result = await getReviews(option);
     } catch (e) {
-      console.log(e);
+      setLoadingError(e);
+      return; //꼭 해주기
     } finally {
       setIsLoading(false);
     }
@@ -55,6 +58,7 @@ function App() {
           더보기
         </button>
       )}
+      {loadingError?.message && <p>{loadingError.message}</p>}
     </>
   );
 }
