@@ -8,6 +8,8 @@ function App() {
   //평점 높은 순으로 정렬하기
   const [order, setOrder] = useState("createdAt");
   const [offset, setOffset] = useState(0);
+  const [hasNext, setHasNext] = useState(true);
+
   const sortedItems = items.sort((a, b) => b[order] - a[order]); // 동적인 속성 접근
 
   const handleDelete = (id) => {
@@ -16,13 +18,14 @@ function App() {
   };
 
   const handleLoad = async (option) => {
-    const { reviews } = await getReviews(option);
+    const { reviews, paging } = await getReviews(option);
     if (option.offset === 0) {
       setItems(reviews);
     } else {
       setItems([...items, ...reviews]);
     }
     setOffset(option.offset + reviews.length);
+    setHasNext(paging.hasNext);
   };
 
   useEffect(() => {
@@ -34,9 +37,11 @@ function App() {
       <button onClick={() => setOrder("createdAt")}>최신순</button>
       <button onClick={() => setOrder("rating")}>평점순</button>
       <ReviewList items={sortedItems} onDelete={handleDelete}></ReviewList>
-      <button onClick={() => handleLoad({ order, offset, limit: 6 })}>
-        더보기
-      </button>
+      {hasNext && (
+        <button onClick={() => handleLoad({ order, offset, limit: 6 })}>
+          더보기
+        </button>
+      )}
     </>
   );
 }
