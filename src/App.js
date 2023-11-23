@@ -9,6 +9,7 @@ function App() {
   const [order, setOrder] = useState("createdAt");
   const [offset, setOffset] = useState(0);
   const [hasNext, setHasNext] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const sortedItems = items.sort((a, b) => b[order] - a[order]); // 동적인 속성 접근
 
@@ -18,11 +19,20 @@ function App() {
   };
 
   const handleLoad = async (option) => {
-    const { reviews, paging } = await getReviews(option);
+    let result;
+    try {
+      setIsLoading(true);
+      result = await getReviews(option);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
+    const { reviews, paging } = result;
     if (option.offset === 0) {
       setItems(reviews);
     } else {
-      setItems([...items, ...reviews]);
+      setItems((prevItems) => [...prevItems, ...reviews]);
     }
     setOffset(option.offset + reviews.length);
     setHasNext(paging.hasNext);
@@ -38,7 +48,10 @@ function App() {
       <button onClick={() => setOrder("rating")}>평점순</button>
       <ReviewList items={sortedItems} onDelete={handleDelete}></ReviewList>
       {hasNext && (
-        <button onClick={() => handleLoad({ order, offset, limit: 6 })}>
+        <button
+          disabled={isLoading}
+          onClick={() => handleLoad({ order, offset, limit: 6 })}
+        >
           더보기
         </button>
       )}
