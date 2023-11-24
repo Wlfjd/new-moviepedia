@@ -1,5 +1,6 @@
 import "./App.css";
 import { getReviews } from "./api";
+import { ReviewForm } from "./components/ReviewForm";
 import { ReviewList } from "./components/ReviewList";
 import { useEffect, useState } from "react";
 
@@ -47,6 +48,7 @@ function App() {
 
   return (
     <>
+      <ReviewForm></ReviewForm>
       <button onClick={() => setOrder("createdAt")}>최신순</button>
       <button onClick={() => setOrder("rating")}>평점순</button>
       <ReviewList items={sortedItems} onDelete={handleDelete}></ReviewList>
