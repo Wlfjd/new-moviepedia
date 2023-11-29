@@ -7,7 +7,7 @@ export function ReviewForm() {
     title: "",
     rating: 0,
     content: "",
-    imgfile: null,
+    imgFile: null,
   });
 
   const handleChange = (name, value) => {
@@ -28,7 +28,7 @@ export function ReviewForm() {
     >
       <FileInput
         name="imgFile"
-        value={values.imgfile}
+        value={values.imgFile}
         onChange={handleChange}
       ></FileInput>
       <input
