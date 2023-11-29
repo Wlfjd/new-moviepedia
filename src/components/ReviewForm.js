@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./ReviewForm.css";
 import { FileInput } from "./FileInput";
+import { Rating } from "./Rating";
 
 export function ReviewForm() {
   const [values, setValues] = useState({

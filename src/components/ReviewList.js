@@ -1,3 +1,4 @@
+import { Rating } from "./Rating";
 import "./ReviewList.css";
 
 function ReviewListItem({ item, onDelete }) {
@@ -6,7 +7,7 @@ function ReviewListItem({ item, onDelete }) {
       <img className="ReviewListItem-img" src={item.imgUrl} alt="img"></img>
       <div>
         <h1>{item.title}</h1>
-        <p>{item.rating}</p>
+        <Rating value={item.rating}></Rating>
         <p>{item.content}</p>
       </div>
       <button onClick={() => onDelete(item.id)}>삭제</button>
