@@ -17,8 +17,14 @@ export function FileInput({ name, value, onChange }) {
 
   useEffect(() => {
     if (value) {
+      //ObjectURL (사이드 이펙트)
       const newPreview = URL.createObjectURL(value);
       setPreview(newPreview);
+      return () => {
+        setPreview();
+        //ObjectURL 해제
+        URL.revokeObjectURL(newPreview);
+      };
     }
   }, [value]);
 
