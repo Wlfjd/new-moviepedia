@@ -7,7 +7,7 @@ export function ReviewForm() {
     title: "",
     rating: 0,
     content: "",
-    imgFile: null,
+    imgFile: null, //파일객체이기 때문에 null로 초깃값 지정
   });
 
   const handleChange = (name, value) => {
