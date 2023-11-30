@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./ReviewForm.css";
 import { FileInput } from "./FileInput";
 import { Rating } from "./Rating";
+import { RatingInput } from "./RatingInput";
 
 export function ReviewForm() {
   const [values, setValues] = useState({
@@ -38,12 +39,11 @@ export function ReviewForm() {
         placeholder="영화제목을 입력해주세요"
         onChange={handleInputChange}
       ></input>
-      <input
+      <RatingInput
         name="rating"
         value={values.rating}
-        type="number"
-        onChange={handleInputChange}
-      ></input>
+        onChange={handleChange}
+      ></RatingInput>
       <textarea
         name="content"
         value={values.content}
