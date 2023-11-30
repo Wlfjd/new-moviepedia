@@ -12,6 +12,8 @@ const INITIAL = {
 };
 export function ReviewForm() {
   const [values, setValues] = useState(INITIAL);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(null);
 
   const handleChange = (name, value) => {
     setValues((prev) => ({ ...prev, [name]: value }));
@@ -32,7 +34,16 @@ export function ReviewForm() {
         formData.append("rating", values.rating);
         formData.append("content", values.content);
         formData.append("imgFile", values.imgFile);
-        await createReview(formData);
+        try {
+          setIsError(null);
+          setIsLoading(true);
+          await createReview(formData);
+        } catch (error) {
+          setIsError(error);
+          return;
+        } finally {
+          setIsLoading(false);
+        }
         setValues(INITIAL);
       }}
     >
@@ -59,7 +70,8 @@ export function ReviewForm() {
         onChange={handleInputChange}
       ></textarea>
 
-      <button>확인</button>
+      <button disabled={isLoading}>확인</button>
+      {isError?.message && <p>{isError.message}</p>}
       {/* 일반적으로 폼 내에서 <button>을 사용하면 이 버튼은 "submit" 유형의 버튼으로 간주되어 폼을 제출 */}
     </form>
   );
