@@ -1,16 +1,17 @@
 import { useState } from "react";
 import "./ReviewForm.css";
 import { FileInput } from "./FileInput";
-import { Rating } from "./Rating";
 import { RatingInput } from "./RatingInput";
+import { createReview } from "../api";
 
+const INITIAL = {
+  title: "",
+  rating: 0,
+  content: "",
+  imgFile: null, //파일객체이기 때문에 null로 초깃값 지정
+};
 export function ReviewForm() {
-  const [values, setValues] = useState({
-    title: "",
-    rating: 0,
-    content: "",
-    imgFile: null, //파일객체이기 때문에 null로 초깃값 지정
-  });
+  const [values, setValues] = useState(INITIAL);
 
   const handleChange = (name, value) => {
     setValues((prev) => ({ ...prev, [name]: value }));
@@ -23,9 +24,16 @@ export function ReviewForm() {
   return (
     <form
       className="ReviewForm"
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         console.log(values);
         e.preventDefault();
+        const formData = new FormData();
+        formData.append("title", values.title);
+        formData.append("rating", values.rating);
+        formData.append("content", values.content);
+        formData.append("imgFile", values.imgFile);
+        await createReview(formData);
+        setValues(INITIAL);
       }}
     >
       <FileInput
