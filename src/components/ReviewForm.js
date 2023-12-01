@@ -10,8 +10,8 @@ const INITIAL = {
   content: "",
   imgFile: null, //파일객체이기 때문에 null로 초깃값 지정
 };
-export function ReviewForm({ onSuccess }) {
-  const [values, setValues] = useState(INITIAL);
+export function ReviewForm({ onSuccess, initalValues = INITIAL }) {
+  const [values, setValues] = useState(initalValues);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
 

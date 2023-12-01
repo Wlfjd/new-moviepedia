@@ -49,7 +49,7 @@ function App() {
   return (
     <>
       <ReviewForm
-        onSuccess={(review) => setItems((prev) => [review, ...prev])}
+        onSuccess={(review) => setItems((prev) => [review, ...prev])} //비동기로 일어나서 setter 함수를 콜백형태로 사용
       ></ReviewForm>
       <button onClick={() => setOrder("createdAt")}>최신순</button>
       <button onClick={() => setOrder("rating")}>평점순</button>
