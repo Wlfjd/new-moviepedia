@@ -48,7 +48,9 @@ function App() {
 
   return (
     <>
-      <ReviewForm></ReviewForm>
+      <ReviewForm
+        onSuccess={(review) => setItems((prev) => [review, ...prev])}
+      ></ReviewForm>
       <button onClick={() => setOrder("createdAt")}>최신순</button>
       <button onClick={() => setOrder("rating")}>평점순</button>
       <ReviewList items={sortedItems} onDelete={handleDelete}></ReviewList>

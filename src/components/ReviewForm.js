@@ -10,7 +10,7 @@ const INITIAL = {
   content: "",
   imgFile: null, //파일객체이기 때문에 null로 초깃값 지정
 };
-export function ReviewForm() {
+export function ReviewForm({ onSuccess }) {
   const [values, setValues] = useState(INITIAL);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
@@ -34,10 +34,12 @@ export function ReviewForm() {
         formData.append("rating", values.rating);
         formData.append("content", values.content);
         formData.append("imgFile", values.imgFile);
+
+        let result;
         try {
           setIsError(null);
           setIsLoading(true);
-          await createReview(formData);
+          result = await createReview(formData);
         } catch (error) {
           setIsError(error);
           return;
@@ -45,6 +47,8 @@ export function ReviewForm() {
           setIsLoading(false);
         }
         setValues(INITIAL);
+        const { review } = result;
+        onSuccess(review);
       }}
     >
       <FileInput
