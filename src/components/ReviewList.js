@@ -24,9 +24,14 @@ export function ReviewList({ items, onDelete }) {
     <ul>
       {items.map((item) => {
         if (item.id === editingId) {
+          const { title, rating, content } = item;
+          const initalValues = { title, rating, content };
           return (
             <li key={item.id}>
-              <ReviewForm></ReviewForm>
+              <ReviewForm
+                initalValues={initalValues}
+                onCancel={() => setEditingId(null)}
+              ></ReviewForm>
             </li>
           );
         }

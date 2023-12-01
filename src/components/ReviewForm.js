@@ -10,7 +10,7 @@ const INITIAL = {
   content: "",
   imgFile: null, //파일객체이기 때문에 null로 초깃값 지정
 };
-export function ReviewForm({ onSuccess, initalValues = INITIAL }) {
+export function ReviewForm({ onSuccess, initalValues = INITIAL, onCancel }) {
   const [values, setValues] = useState(initalValues);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
@@ -75,6 +75,7 @@ export function ReviewForm({ onSuccess, initalValues = INITIAL }) {
       ></textarea>
 
       <button disabled={isLoading}>확인</button>
+      {onCancel && <button onClick={onCancel}>취소</button>}
       {isError?.message && <p>{isError.message}</p>}
       {/* 일반적으로 폼 내에서 <button>을 사용하면 이 버튼은 "submit" 유형의 버튼으로 간주되어 폼을 제출 */}
     </form>
