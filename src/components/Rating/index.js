@@ -1,4 +1,4 @@
-import "./Rating.css";
+import "./index.css";
 
 const RATING = [1, 2, 3, 4, 5];
 
@@ -24,7 +24,7 @@ export function Rating({ value, onSelect, onHover, onMouseOut, className }) {
           rating={item}
           onSelect={onSelect}
           onHover={onHover}
-        ></Star>
+        />
       ))}
     </div>
   );

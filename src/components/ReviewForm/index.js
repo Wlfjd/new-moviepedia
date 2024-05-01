@@ -1,8 +1,10 @@
+import "./index.css";
+
 import { useState } from "react";
-import "./ReviewForm.css";
-import { FileInput } from "./FileInput";
-import { RatingInput } from "./RatingInput";
-import { createReview } from "../api";
+
+import { createReview } from "../../api";
+import { FileInput } from "../FileInput";
+import { RatingInput } from "../RatingInput";
 
 const INITIAL = {
   title: "",
@@ -55,7 +57,7 @@ export function ReviewForm({ onSuccess, initalValues = INITIAL, onCancel }) {
         name="imgFile"
         value={values.imgFile}
         onChange={handleChange}
-      ></FileInput>
+      />
       <input
         name="title"
         value={values.title}
@@ -66,7 +68,7 @@ export function ReviewForm({ onSuccess, initalValues = INITIAL, onCancel }) {
         name="rating"
         value={values.rating}
         onChange={handleChange}
-      ></RatingInput>
+      />
       <textarea
         name="content"
         value={values.content}

@@ -1,8 +1,10 @@
 import "./App.css";
+
+import { useEffect, useState } from "react";
+
 import { getReviews } from "./api";
 import { ReviewForm } from "./components/ReviewForm";
 import { ReviewList } from "./components/ReviewList";
-import { useEffect, useState } from "react";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -13,7 +15,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [loadingError, setLoadingError] = useState(null);
 
-  const sortedItems = items.sort((a, b) => b[order] - a[order]); // 동적인 속성 접근
+  const sortedItems = items.sort((a, b) => b[order] - a[order]);
 
   const handleDelete = (id) => {
     const newItmes = items.filter((i) => i.id !== id);

@@ -1,7 +1,9 @@
+import "./index.css";
+
 import { useState } from "react";
-import { Rating } from "./Rating";
-import { ReviewForm } from "./ReviewForm";
-import "./ReviewList.css";
+
+import { Rating } from "../Rating";
+import { ReviewForm } from "../ReviewForm";
 
 function ReviewListItem({ item, onDelete, onEdit }) {
   return (
